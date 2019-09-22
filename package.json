@@ -2,9 +2,9 @@
   "name": "isolation-forest",
   "version": "0.0.1",
   "description": "Isolation Forest implementation written in TypeScript.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "build": "tsc"
@@ -25,7 +25,10 @@
   },
   "homepage": "https://github.com/jayhaluska/isolation-forest-js#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "jest": "^24.9.0",
     "prettier": "^1.18.2",
+    "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.3"
