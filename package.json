@@ -1,0 +1,36 @@
+{
+  "name": "isolation-forest",
+  "version": "0.0.1",
+  "description": "Isolation Forest implementation written in TypeScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayhaluska/isolation-forest-js.git"
+  },
+  "keywords": [
+    "iTree",
+    "iForest",
+    "isolation-forest"
+  ],
+  "author": "Julian Haluska",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jayhaluska/isolation-forest-js/issues"
+  },
+  "homepage": "https://github.com/jayhaluska/isolation-forest-js#readme",
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.3"
+  },
+  "bin": {
+    "test-IF": "src/test.ts"
+  }
+}
