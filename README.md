@@ -6,7 +6,7 @@ Use it to efficiently detect anomalies in your dataset.
 ## Install
 
 ```sh
-$ npm install --save isolation-forest-js
+$ npm install --save isolation-forest
 ```
 
 ## Usage

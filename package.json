@@ -1,7 +1,7 @@
 {
   "name": "isolation-forest",
   "version": "0.0.1",
-  "description": "Isolation Forest implementation written in TypeScript.",
+  "description": "Isolation Forest for anomaly detection.",
   "main": "index.ts",
   "scripts": {
     "test": "jest",
@@ -16,7 +16,9 @@
   "keywords": [
     "iTree",
     "iForest",
-    "isolation-forest"
+    "isolation-forest",
+    "isolation forest",
+    "Isolation Forest"
   ],
   "author": "Julian Haluska",
   "license": "MIT",
