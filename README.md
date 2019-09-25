@@ -28,7 +28,7 @@ If instances return a score very **close to 1**, then they are definitely **anom
 
 If instances have a score much **smaller than 0.5**, then they are quite **safe to be regarded as normal instances**.
 
-If all the instances return a **score ≈ 0.5**, then the entire sample **does not really have any distinct anomaly**.
+If **all** the instances return a **score ≈ 0.5**, then the entire sample **does not really have any distinct anomaly**.
 
 
 ## References

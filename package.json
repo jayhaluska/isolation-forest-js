@@ -1,8 +1,8 @@
 {
   "name": "isolation-forest",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Isolation Forest for anomaly detection.",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
@@ -35,8 +35,5 @@
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.3"
-  },
-  "bin": {
-    "test-IF": "src/test.ts"
   }
 }
