@@ -5,16 +5,14 @@ export type DataObject = {
 export class ITree {
 
 	rootNode: TreeNode;
-	size: number;
 
 	constructor (X: DataObject[], heightLimit: number) {
 		this.rootNode = new TreeNode(X, 0, heightLimit);
-		this.size = X.length;
 	}
 
 	pathLength (x: DataObject, treeNode: TreeNode, currentPathLength: number): number {
 		if (treeNode.isExternalNode()) {
-			return currentPathLength + averagePathLength(this.size);
+			return currentPathLength + averagePathLength(treeNode.size());
 		}
 		const splitAttr: string = treeNode.splitAttribute;
 		if (x[splitAttr] < treeNode.splitValue) {
@@ -24,16 +22,20 @@ export class ITree {
 			return this.pathLength(x, treeNode.rightChild, currentPathLength+1);
 		}
 	}
+
+	size(): number {
+		return this.rootNode.size();
+	}
 }
 
 export class IsolationForest {
 
 	trees: ITree[];
-	X: {}[];
+	X: DataObject[];
 	subsamplingSize: number;
 	numberOfTrees: number;
 
-	constructor (subsamplingSize: number = -1, numberOfTrees: number = 100) {
+	constructor (numberOfTrees: number = 100, subsamplingSize: number = -1) {
 		this.subsamplingSize = subsamplingSize;
 		this.numberOfTrees = numberOfTrees;
 		this.trees = [];
@@ -42,11 +44,12 @@ export class IsolationForest {
 
 	fit(X: DataObject[]): ITree[] {
 		this.X = X;
+		let heightLimit = Math.ceil(Math.log2(this.subsamplingSize));
 		if (this.subsamplingSize === -1) {
 			this.subsamplingSize = this.X.length;
+			heightLimit = Math.ceil(Math.log2(this.X.length));
 		}
 
-		const heightLimit = Math.ceil(Math.log2(this.subsamplingSize));
 		for (let i = 0; i < this.numberOfTrees; i++) {
 			//const subsample = this.getSubsample(i % this.subsamplingSize);
 
@@ -67,12 +70,13 @@ export class IsolationForest {
 	scores(): number[] {
 		let scoreArray: number[] = [];
 		for (let i = 0; i < this.X.length; i++) {
-			let score: number = 0;
+			let pathLength: number = 0;
 			for (let j = 0; j < this.numberOfTrees; j++) {
-				score += this.trees[j].pathLength(this.X[i], this.trees[j].rootNode, 0);
+				pathLength += this.trees[j].pathLength(this.X[i], this.trees[j].rootNode, 0);
 			}
-			score /= this.numberOfTrees;
-			console.log(score);
+			let meanPathLength = pathLength / this.numberOfTrees;
+
+			const score = Math.pow(2, -(meanPathLength/averagePathLength(this.X.length)));
 			scoreArray.push(score);
 		}
 		return scoreArray;
@@ -82,6 +86,7 @@ export class IsolationForest {
 
 class TreeNode {
 
+	X: DataObject[];
 	splitAttribute: string = undefined;
 	splitValue: number = undefined;
 	height: number;
@@ -93,6 +98,7 @@ class TreeNode {
 		this.height = height;
 		this.heightLimit = heightLimit;
 		if (height >= heightLimit || X.length <= 1) {
+			this.X = X;
 			return this;
 		}
 		else {
@@ -100,7 +106,7 @@ class TreeNode {
 			this.splitAttribute = attributes[Math.floor(Math.random() * attributes.length)];
 			const attributeMax = Math.max.apply(Math, X.map((x) => { return x[this.splitAttribute]; }));
 			const attributeMin = Math.min.apply(Math, X.map((x) => { return x[this.splitAttribute]; }));
-			this.splitValue = Math.random() * (attributeMax - attributeMin) + attributeMin;;
+			this.splitValue = Math.random() * (attributeMax - attributeMin) + attributeMin;
 			const dataSplitA = X.filter((x) => x[this.splitAttribute] < this.splitValue);
 			const dataSplitB = X.filter((x) => x[this.splitAttribute] >= this.splitValue);
 			this.leftChild = new TreeNode(dataSplitA, height + 1, heightLimit);
@@ -116,17 +122,24 @@ class TreeNode {
 	isInternalNode(): boolean {
 		return this.leftChild !== undefined && this.rightChild !== undefined;
 	}
+
+	size(): number {
+		if (this.X !== undefined) {
+			return this.X.length;
+		}
+	}
 }
 
-function getAttributes (dataObject: {}): string[] {
+function getAttributes (dataObject: DataObject): string[] {
 	return Object.keys(dataObject);
 }
 
-function averagePathLength(n: number) {
+export function averagePathLength(n: number) {
 	return (2 * harmonicNumber(n-1)) - (2*(n-1)/n);
-
 }
 
-function harmonicNumber(i: number): number {
-	return Math.log2(i) + Math.E;
+export const EULER_MASCHERONI =  0.57721;
+
+export function harmonicNumber(i: number): number {
+	return Math.log(i) + EULER_MASCHERONI;
 }
