@@ -12,7 +12,7 @@ $ npm install --save isolation-forest
 ## Usage
 
 ```javascript
-import { IsolationForest } from 'isolation-forest-js'
+import { IsolationForest } from 'isolation-forest'
 
 var isolationForest = new IsolationForest();
 isolationForest.fit(data) // Type ObjectArray ({}[]); 
