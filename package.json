@@ -2,7 +2,8 @@
   "name": "isolation-forest",
   "version": "0.0.3",
   "description": "Isolation Forest for anomaly detection.",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
