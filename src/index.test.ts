@@ -148,8 +148,8 @@ test('Isolation Forest.fit(), default values', () => {
 	});
 });
 
-test('Isolation Forest.fit(), subsampling = 30', () => {
-	const isfo = new IsolationForest(100, 30);
+test('Isolation Forest.fit(), subsampling = 60', () => {
+	const isfo = new IsolationForest(100, 60);
 	isfo.fit(testData);
 	const scores = isfo.scores();
 
@@ -189,7 +189,11 @@ test('averagePathLength(1)', () => {
 })
 
 test('averagePathLength(2)', () => {
-	expect(averagePathLength(2)).toBe(0.15442);
+	expect(averagePathLength(2)).toBe(1);
+})
+
+test('averagePathLength(3)', () => {
+	expect(averagePathLength(3)).toBe(1.2073810277865575);
 })
 
 test('harmonicNumber(0)', () => {

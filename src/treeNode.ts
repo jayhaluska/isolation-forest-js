@@ -43,7 +43,8 @@ export class TreeNode {
 	public size(): number {
 		if (this.X !== undefined) {
 			return this.X.length;
-		}
+        }
+        return 0;
     }
     
     private getAttributes(x: DataObject): string[] {

@@ -15,10 +15,10 @@ export class ITree {
 		}
 		const splitAttr: string = treeNode.splitAttribute;
 		if (x[splitAttr] < treeNode.splitValue) {
-			return this.pathLength(x, treeNode.leftChild, currentPathLength+1);
+			return this.pathLength(x, treeNode.leftChild, currentPathLength + 1);
 		}
 		else {
-			return this.pathLength(x, treeNode.rightChild, currentPathLength+1);
+			return this.pathLength(x, treeNode.rightChild, currentPathLength + 1);
 		}
 	}
 
@@ -34,7 +34,10 @@ export class ITree {
 export function averagePathLength(n: number) {
 	if (n === 0 || n === 1) {
 		return 0;
-	}
+    }
+    else if (n === 2) {
+        return 1;
+    }
 	return (2 * harmonicNumber(n-1)) - (2*(n-1)/n);
 }
 
