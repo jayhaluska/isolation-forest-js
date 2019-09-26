@@ -1,6 +1,6 @@
 {
   "name": "isolation-forest",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Isolation Forest for anomaly detection.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,12 +29,17 @@
   "homepage": "https://github.com/jayhaluska/isolation-forest-js#readme",
   "devDependencies": {
     "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.8",
     "csv-parser": "^2.3.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.6.3"
+  },
+  "dependencies": {
+    "knuth-shuffle": "^1.0.8"
   }
 }

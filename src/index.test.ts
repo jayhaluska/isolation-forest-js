@@ -1,12 +1,7 @@
-import { ITree, IsolationForest, averagePathLength, harmonicNumber, EULER_MASCHERONI } from './index'
+import { IsolationForest } from './index'
+import { averagePathLength, EULER_MASCHERONI, harmonicNumber, ITree } from './iTree';
 
-test('Empty ITree has size 0', () => {
-	const tree = new ITree([], 5);
-	expect(tree.size()).toBe(0);
-});
-
-test('Isolation Forest.fit()', () => {
-	const testData = [
+const testData = [
 	{"x": 0, "y": 0},
 	{"x": 1, "y": 1},
 	{"x": 9, "y": 9},
@@ -116,21 +111,81 @@ test('Isolation Forest.fit()', () => {
 	{"x": 5.28378, "y": 5.28121}
 ];
 
-	const isfo = new IsolationForest(100);
+test('Empty ITree has size 0', () => {
+	const tree = new ITree([], 5);
+	expect(tree.size()).toBe(0);
+});
+
+test('Isolation Forest.fit(), default values', () => {
+	const isfo = new IsolationForest();
 	isfo.fit(testData);
 	const scores = isfo.scores();
-	expect(scores[0]).toBeGreaterThan(0.7);
-	expect(scores[1]).toBeGreaterThan(0.7);
-	expect(scores[2]).toBeGreaterThan(0.7);
-	expect(scores[3]).toBeGreaterThan(0.7);
+
+	const outlierIndices: number[] = [];
+	const sosoIndices: number[] = [];
+	const normalIndices: number[] = [];
+	isfo.X.forEach((x, i) => {
+		if (x.x >= 7 || x.y <= 3 || x.x <= 3 || x.y >= 7) {
+			outlierIndices.push(i);
+		} else if (x.x === 6 || x.x === 6.5 || x.y === 3.5 || x.y === 4) {
+			sosoIndices.push(i);
+		} else {
+			normalIndices.push(i);
+		}
+	});
+
+	outlierIndices.forEach((x) => {
+		expect(scores[x]).toBeGreaterThan(0.75);
+	});
+
+	sosoIndices.forEach((x) => {
+		expect(scores[x]).toBeLessThanOrEqual(0.75);
+		expect(scores[x]).toBeGreaterThan(0.55);
+	});
+
+	normalIndices.forEach((x) => {
+		expect(scores[x]).toBeLessThanOrEqual(0.55);
+	});
+});
+
+test('Isolation Forest.fit(), subsampling = 30', () => {
+	const isfo = new IsolationForest(100, 30);
+	isfo.fit(testData);
+	const scores = isfo.scores();
+
+	const outlierIndices: number[] = [];
+	const sosoIndices: number[] = [];
+	const normalIndices: number[] = [];
+	isfo.X.forEach((x, i) => {
+		if (x.x >= 7 || x.y <= 3 || x.x <= 3 || x.y >= 7) {
+			outlierIndices.push(i);
+		} else if (x.x === 6 || x.x === 6.5 || x.y === 3.5 || x.y === 4) {
+			sosoIndices.push(i);
+		} else {
+			normalIndices.push(i);
+		}
+	});
+
+	outlierIndices.forEach((x) => {
+		expect(scores[x]).toBeGreaterThan(0.75);
+	});
+
+	sosoIndices.forEach((x) => {
+		expect(scores[x]).toBeLessThanOrEqual(0.75);
+		expect(scores[x]).toBeGreaterThan(0.55);
+	});
+
+	normalIndices.forEach((x) => {
+		expect(scores[x]).toBeLessThanOrEqual(0.55);
+	});
 });
 
 test('averagePathLength(0)', () => {
-	expect(averagePathLength(0)).toBe(NaN);
+	expect(averagePathLength(0)).toBe(0);
 })
 
 test('averagePathLength(1)', () => {
-	expect(averagePathLength(1)).toBe(-Infinity);
+	expect(averagePathLength(1)).toBe(0);
 })
 
 test('averagePathLength(2)', () => {
