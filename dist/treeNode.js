@@ -36,6 +36,7 @@ var TreeNode = /** @class */ (function () {
         if (this.X !== undefined) {
             return this.X.length;
         }
+        return 0;
     };
     TreeNode.prototype.getAttributes = function (x) {
         return Object.keys(x);

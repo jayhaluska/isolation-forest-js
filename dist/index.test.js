@@ -119,28 +119,58 @@ test('Isolation Forest.fit(), default values', function () {
     var isfo = new index_1.IsolationForest();
     isfo.fit(testData);
     var scores = isfo.scores();
-    var indices = [];
+    var outlierIndices = [];
+    var sosoIndices = [];
+    var normalIndices = [];
     isfo.X.forEach(function (x, i) {
         if (x.x >= 7 || x.y <= 3 || x.x <= 3 || x.y >= 7) {
-            indices.push(i);
+            outlierIndices.push(i);
+        }
+        else if (x.x === 6 || x.x === 6.5 || x.y === 3.5 || x.y === 4) {
+            sosoIndices.push(i);
+        }
+        else {
+            normalIndices.push(i);
         }
     });
-    indices.forEach(function (x) {
-        expect(scores[x]).toBeGreaterThan(0.7);
+    outlierIndices.forEach(function (x) {
+        expect(scores[x]).toBeGreaterThan(0.75);
+    });
+    sosoIndices.forEach(function (x) {
+        expect(scores[x]).toBeLessThanOrEqual(0.75);
+        expect(scores[x]).toBeGreaterThan(0.55);
+    });
+    normalIndices.forEach(function (x) {
+        expect(scores[x]).toBeLessThanOrEqual(0.55);
     });
 });
-test('Isolation Forest.fit(), subsampling = 30', function () {
-    var isfo = new index_1.IsolationForest(100, 30);
+test('Isolation Forest.fit(), subsampling = 60', function () {
+    var isfo = new index_1.IsolationForest(100, 60);
     isfo.fit(testData);
     var scores = isfo.scores();
-    var indices = [];
+    var outlierIndices = [];
+    var sosoIndices = [];
+    var normalIndices = [];
     isfo.X.forEach(function (x, i) {
         if (x.x >= 7 || x.y <= 3 || x.x <= 3 || x.y >= 7) {
-            indices.push(i);
+            outlierIndices.push(i);
+        }
+        else if (x.x === 6 || x.x === 6.5 || x.y === 3.5 || x.y === 4) {
+            sosoIndices.push(i);
+        }
+        else {
+            normalIndices.push(i);
         }
     });
-    indices.forEach(function (x) {
-        expect(scores[x]).toBeGreaterThan(0.7);
+    outlierIndices.forEach(function (x) {
+        expect(scores[x]).toBeGreaterThan(0.75);
+    });
+    sosoIndices.forEach(function (x) {
+        expect(scores[x]).toBeLessThanOrEqual(0.75);
+        expect(scores[x]).toBeGreaterThan(0.55);
+    });
+    normalIndices.forEach(function (x) {
+        expect(scores[x]).toBeLessThanOrEqual(0.55);
     });
 });
 test('averagePathLength(0)', function () {
@@ -150,7 +180,10 @@ test('averagePathLength(1)', function () {
     expect(iTree_1.averagePathLength(1)).toBe(0);
 });
 test('averagePathLength(2)', function () {
-    expect(iTree_1.averagePathLength(2)).toBe(0.15442);
+    expect(iTree_1.averagePathLength(2)).toBe(1);
+});
+test('averagePathLength(3)', function () {
+    expect(iTree_1.averagePathLength(3)).toBe(1.2073810277865575);
 });
 test('harmonicNumber(0)', function () {
     expect(iTree_1.harmonicNumber(0)).toBe(-Infinity);
