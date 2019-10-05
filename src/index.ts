@@ -15,12 +15,11 @@ export class IsolationForest {
 	private numberOfTrees: number;
 	private shuffleData: boolean;
 
-	constructor (numberOfTrees: number = 100, subsamplingSize: number = 256, shuffleData: boolean = false) {
+	constructor (numberOfTrees: number = 100, subsamplingSize: number = 256) {
 		this.subsamplingSize = subsamplingSize;
 		this.numberOfTrees = numberOfTrees;
 		this.trees = [];
 		this.X = [];
-		this.shuffleData = shuffleData;
 	}
 
 	public fit(X: DataObject[]): ITree[] {
@@ -29,11 +28,6 @@ export class IsolationForest {
 			this.subsamplingSize = this.X.length;
 		}
 		const heightLimit = Math.ceil(Math.log2(this.subsamplingSize));
-
-		if (this.shuffleData) {
-			// shuffle dataset
-			this.X = shuffle(this.X);
-		}
 
 		for (let i = 0; i < this.numberOfTrees; i++) {
 			const subsample = this.getSubsample(this.subsamplingSize);
@@ -60,7 +54,7 @@ export class IsolationForest {
 
 	private getSubsample(subsampleSize: number): DataObject[] {
 		const subsample = [];
-		const data: DataObject[] = shuffle(this.X);
+		const data: DataObject[] = shuffle(this.X.slice(0));
 		return data.slice(0, subsampleSize);
 	}
 }
