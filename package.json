@@ -1,6 +1,6 @@
 {
   "name": "isolation-forest",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Isolation Forest for anomaly detection.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
