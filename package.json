@@ -28,15 +28,15 @@
   },
   "homepage": "https://github.com/jayhaluska/isolation-forest-js#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.8",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.37",
     "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "ts-jest": "^24.1.0",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.20.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.10.1",
+    "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "knuth-shuffle": "^1.0.8"
