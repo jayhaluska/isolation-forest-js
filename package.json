@@ -1,6 +1,6 @@
 {
   "name": "isolation-forest",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Isolation Forest for anomaly detection.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -30,7 +30,6 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.8",
-    "csv-parser": "^2.3.1",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",

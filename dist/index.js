@@ -3,15 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var iTree_1 = require("./iTree");
 var shuffle = require('knuth-shuffle').knuthShuffle;
 var IsolationForest = /** @class */ (function () {
-    function IsolationForest(numberOfTrees, subsamplingSize, shuffleData) {
+    function IsolationForest(numberOfTrees, subsamplingSize) {
         if (numberOfTrees === void 0) { numberOfTrees = 100; }
         if (subsamplingSize === void 0) { subsamplingSize = 256; }
-        if (shuffleData === void 0) { shuffleData = false; }
         this.subsamplingSize = subsamplingSize;
         this.numberOfTrees = numberOfTrees;
         this.trees = [];
         this.X = [];
-        this.shuffleData = shuffleData;
     }
     IsolationForest.prototype.fit = function (X) {
         this.X = X;
@@ -19,10 +17,6 @@ var IsolationForest = /** @class */ (function () {
             this.subsamplingSize = this.X.length;
         }
         var heightLimit = Math.ceil(Math.log2(this.subsamplingSize));
-        if (this.shuffleData) {
-            // shuffle dataset
-            this.X = shuffle(this.X);
-        }
         for (var i = 0; i < this.numberOfTrees; i++) {
             var subsample = this.getSubsample(this.subsamplingSize);
             var iTree = new iTree_1.ITree(this.X, heightLimit);
@@ -46,7 +40,7 @@ var IsolationForest = /** @class */ (function () {
     };
     IsolationForest.prototype.getSubsample = function (subsampleSize) {
         var subsample = [];
-        var data = shuffle(this.X);
+        var data = shuffle(this.X.slice(0));
         return data.slice(0, subsampleSize);
     };
     return IsolationForest;

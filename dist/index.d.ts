@@ -8,7 +8,7 @@ export declare class IsolationForest {
     private subsamplingSize;
     private numberOfTrees;
     private shuffleData;
-    constructor(numberOfTrees?: number, subsamplingSize?: number, shuffleData?: boolean);
+    constructor(numberOfTrees?: number, subsamplingSize?: number);
     fit(X: DataObject[]): ITree[];
     scores(): number[];
     private getSubsample;
