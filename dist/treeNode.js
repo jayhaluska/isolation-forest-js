@@ -16,8 +16,9 @@ var TreeNode = /** @class */ (function () {
         else {
             var attributes = this.getAttributes(X[0]);
             this.splitAttribute = attributes[Math.floor(Math.random() * attributes.length)];
-            var attributeMax = Math.max.apply(Math, X.map(function (x) { return x[_this.splitAttribute]; }));
-            var attributeMin = Math.min.apply(Math, X.map(function (x) { return x[_this.splitAttribute]; }));
+            var splitAttributeArray = X.map(function (x) { return x[_this.splitAttribute]; });
+            var attributeMax = this.max(splitAttributeArray);
+            var attributeMin = this.min(splitAttributeArray);
             this.splitValue = Math.random() * (attributeMax - attributeMin) + attributeMin;
             var dataSplitA = X.filter(function (x) { return x[_this.splitAttribute] < _this.splitValue; });
             var dataSplitB = X.filter(function (x) { return x[_this.splitAttribute] >= _this.splitValue; });
@@ -26,6 +27,22 @@ var TreeNode = /** @class */ (function () {
             return this;
         }
     }
+    TreeNode.prototype.max = function (arr) {
+        var len = arr.length;
+        var max = arr[0];
+        while (len--) {
+            max = max >= arr[len] ? max : arr[len];
+        }
+        return max;
+    };
+    TreeNode.prototype.min = function (arr) {
+        var len = arr.length;
+        var min = arr[0];
+        while (len--) {
+            min = min >= arr[len] ? arr[len] : min;
+        }
+        return min;
+    };
     TreeNode.prototype.isExternalNode = function () {
         return this.leftChild === undefined && this.rightChild === undefined;
     };

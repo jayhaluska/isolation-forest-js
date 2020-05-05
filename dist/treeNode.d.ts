@@ -7,6 +7,8 @@ export declare class TreeNode {
     private X;
     private height;
     private heightLimit;
+    private max;
+    private min;
     constructor(X: DataObject[], height: number, heightLimit: number);
     isExternalNode(): boolean;
     isInternalNode(): boolean;

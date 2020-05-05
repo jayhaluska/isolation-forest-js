@@ -33,7 +33,7 @@ function averagePathLength(n) {
     else if (n === 2) {
         return 1;
     }
-    return (2 * harmonicNumber(n - 1)) - (2 * (n - 1) / n);
+    return 2 * harmonicNumber(n - 1) - (2 * (n - 1)) / n;
 }
 exports.averagePathLength = averagePathLength;
 exports.EULER_MASCHERONI = 0.57721;
