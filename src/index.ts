@@ -51,6 +51,20 @@ export class IsolationForest {
     return scoreArray;
   }
 
+  public predict(X: DataObject[]): number[] {
+    const scoreArray: number[] = [];
+    for (const x of X) {
+      let pathLength: number = 0;
+      for (let j = 0; j < this.numberOfTrees; j++) {
+        pathLength += this.trees[j].pathLength(x, this.trees[j].getRootNode(), 0);
+      }
+      const meanPathLength = pathLength / this.numberOfTrees;
+      const score = Math.pow(2, -(meanPathLength / averagePathLength(this.subsamplingSize)));
+      scoreArray.push(score);
+    }
+    return scoreArray;
+  }
+
   private getSubsample(subsampleSize: number): DataObject[] {
     const subsample = [];
     const data: DataObject[] = shuffle(this.X.slice(0));
