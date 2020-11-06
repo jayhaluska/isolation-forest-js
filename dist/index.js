@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.IsolationForest = void 0;
 var iTree_1 = require("./iTree");
 var shuffle = require('knuth-shuffle').knuthShuffle;
 var IsolationForest = /** @class */ (function () {
@@ -28,6 +29,20 @@ var IsolationForest = /** @class */ (function () {
         var scoreArray = [];
         for (var _i = 0, _a = this.X; _i < _a.length; _i++) {
             var x = _a[_i];
+            var pathLength = 0;
+            for (var j = 0; j < this.numberOfTrees; j++) {
+                pathLength += this.trees[j].pathLength(x, this.trees[j].getRootNode(), 0);
+            }
+            var meanPathLength = pathLength / this.numberOfTrees;
+            var score = Math.pow(2, -(meanPathLength / iTree_1.averagePathLength(this.subsamplingSize)));
+            scoreArray.push(score);
+        }
+        return scoreArray;
+    };
+    IsolationForest.prototype.predict = function (X) {
+        var scoreArray = [];
+        for (var _i = 0, X_1 = X; _i < X_1.length; _i++) {
+            var x = X_1[_i];
             var pathLength = 0;
             for (var j = 0; j < this.numberOfTrees; j++) {
                 pathLength += this.trees[j].pathLength(x, this.trees[j].getRootNode(), 0);
