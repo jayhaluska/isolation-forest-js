@@ -11,5 +11,6 @@ export declare class IsolationForest {
     constructor(numberOfTrees?: number, subsamplingSize?: number);
     fit(X: DataObject[]): ITree[];
     scores(): number[];
+    predict(X: DataObject[]): number[];
     private getSubsample;
 }
