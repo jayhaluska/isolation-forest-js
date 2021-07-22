@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.harmonicNumber = exports.EULER_MASCHERONI = exports.averagePathLength = exports.ITree = void 0;
 var treeNode_1 = require("./treeNode");
 var ITree = /** @class */ (function () {
     function ITree(X, heightLimit) {
