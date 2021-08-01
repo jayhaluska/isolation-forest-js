@@ -15,9 +15,12 @@ $ npm install --save isolation-forest
 import { IsolationForest } from 'isolation-forest'
 
 var isolationForest = new IsolationForest();
-isolationForest.fit(data) // Type ObjectArray ({}[]); 
+isolationForest.fit(trainingData) // Type ObjectArray ({}[]); 
 
-var scores = isolationForest.scores()
+var trainingScores = isolationForest.scores()
+
+// then predict any data
+var scores = isolationForest.predict(data)
 ```
 
 #### Parameters
