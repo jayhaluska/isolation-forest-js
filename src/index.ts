@@ -38,8 +38,12 @@ export class IsolationForest {
   }
 
   public scores(): number[] {
+    return this.predict(this.X)
+  }
+
+  public predict(X: DataObject[]): number[] {
     const scoreArray: number[] = [];
-    for (const x of this.X) {
+    for (const x of X) {
       let pathLength: number = 0;
       for (let j = 0; j < this.numberOfTrees; j++) {
         pathLength += this.trees[j].pathLength(x, this.trees[j].getRootNode(), 0);

@@ -25,9 +25,12 @@ var IsolationForest = /** @class */ (function () {
         return this.trees;
     };
     IsolationForest.prototype.scores = function () {
+        return this.predict(this.X);
+    };
+    IsolationForest.prototype.predict = function (X) {
         var scoreArray = [];
-        for (var _i = 0, _a = this.X; _i < _a.length; _i++) {
-            var x = _a[_i];
+        for (var _i = 0, X_1 = X; _i < X_1.length; _i++) {
+            var x = X_1[_i];
             var pathLength = 0;
             for (var j = 0; j < this.numberOfTrees; j++) {
                 pathLength += this.trees[j].pathLength(x, this.trees[j].getRootNode(), 0);
